@@ -117,7 +117,7 @@
 
     for(let i = 0; i<drums.length; i++){
         drums[i].addEventListener('click' ,()=>{
-            let audio = new Audio(`/audios/${drumsName[i].innerText}.wav`)
+            let audio = new Audio(`/${drumsName[i].innerText}.wav`)
             audio.play();
         })
     }
