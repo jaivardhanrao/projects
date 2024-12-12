@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interface with Voting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e90ff, #ff7f50);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .quiz-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .quiz-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .quiz-container .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-container .options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .quiz-container .option {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .quiz-container .option button {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #1e90ff;
+            color: white;
+            width: 100%;
+            text-align: left;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-container .option button:hover {
+            background: #ff7f50;
+        }
+
+        .quiz-container .progress-bar {
+            margin-top: 10px;
+            height: 15px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #fff;
+        }
+
+        .quiz-container .progress-bar span {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, #32cd32, #228b22);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .quiz-container .next {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #32cd32;
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-container .next:hover {
+            background: #228b22;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Voting</h1>
+        <div class="question">Which programing language do you like the most</div>
+        <div class="options">
+            <div class="option">
+                <button>JAVA</button>
+                <div class="progress-bar"><span style="width: 0%;"></span></div>
+            </div>
+            <div class="option">
+                <button>C++</button>
+                <div class="progress-bar"><span style="width: 0%;"></span></div>
+            </div>
+            <div class="option">
+                <button>JavaScript</button>
+                <div class="progress-bar"><span style="width: 0%;"></span></div>
+            </div>
+            <div class="option">
+                <button>Python</button>
+                <div class="progress-bar"><span style="width: 0%;"></span></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+function getPercentage(arr){
+        let sum = 0;
+        for(let i =0; i< arr.length; i++){
+            sum+=arr[i];
+        }
+
+        let ans = [0, 0, 0, 0];
+
+        for(let i =0; i< arr.length; i++){
+            ans[i] = (arr[i]/sum)*100;
+        }
+        return ans;
+
+    }
+
+
+    let options = document.querySelectorAll('.option')
+    let bars = document.querySelectorAll('.progress-bar span')
+    let choose = [0,0,0,0]
+
+    for(let i = 0; i<options.length; i++){
+        options[i].addEventListener('click', ()=>{
+            choose[i]++;
+            let res = getPercentage(choose);
+            
+            for(let j = 0; j<options.length; j++){
+                bars[j].style.width = `${res[j]}%`;
+            }
+
+        })
+    }
+
+    
+</script>
+</html>

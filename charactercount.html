@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Character Counter</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+      }
+
+      .textarea-container {
+        margin-bottom: 20px;
+      }
+
+      .textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+      }
+
+      .count {
+        font-size: 18px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Character Counter</h1>
+    <div class="textarea-container">
+      <textarea
+        class="textarea"
+        rows="10"
+        cols="50"
+        placeholder="Type here to count"
+      ></textarea>
+    </div>
+    <p class="count">Character Count: 0/50</p>
+
+    <script>
+      const textarea = document.querySelector(".textarea");
+      const countDisplay = document.querySelector(".count");
+
+      textarea.addEventListener("input", () => {
+          if(textarea.value.length > 50) {
+              countDisplay.textContent = `Character Count: ${textarea.value.length}/50`;
+              countDisplay.style.color = "red";
+            }
+            else{
+                countDisplay.style.color = "black";
+                countDisplay.textContent = `Character Count: ${textarea.value.length}/50`;
+            }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rating</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #8e44ad, #3498db);
+            color: white;
+        }
+
+        .stars {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stars i {
+            font-size: 40px;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease;
+            color: white;
+        }
+
+        .stars i:hover {
+            transform: scale(1.1);
+            color: gold;
+        }
+        #marked{
+            color: gold;
+        }
+
+        .rating {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars">
+        <i class="fa-regular fa-star" data="1"></i>
+        <i class="fa-regular fa-star" data="2"></i>
+        <i class="fa-regular fa-star" data="3"></i>
+        <i class="fa-regular fa-star" data="4"></i>
+        <i class="fa-regular fa-star" data="5"></i>
+    </div>
+    <div class="rating">Rating : 0/5</div>
+</body>
+<script>
+    let stars = document.querySelectorAll('.fa-star');
+    let rating = document.querySelector('.rating')
+    for(let i = 0; i<stars.length; i++){
+        stars[i].addEventListener('click', ()=>{
+
+            for(let j = 0; j<=i; j++){
+                stars[j].classList.replace('fa-regular' , 'fa-solid');
+                stars[j].id = 'marked';
+                // console.log(stars[j]);
+            }
+            for(let j = i+1; j<stars.length; j++){
+                stars[j].classList.value = "fa-regular fa-star";
+                stars[j].id = '';
+
+                // console.log(stars[j]);
+            }
+            
+            rating.innerText = `Rating : ${i+1}/5`
+        })
+    }
+</script>
+</html>
+

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #1e90ff, #ff7f50);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .tracker-container {
+        background: rgba(0, 0, 0, 0.8);
+        padding: 30px;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .tracker-container h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+        color: #ffd700;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 1.2rem;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        outline: none;
+      }
+
+      .input-group input:focus {
+        border-color: #ffd700;
+      }
+
+      .add-expense-btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        background: #32cd32;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .add-expense-btn:hover {
+        background: #228b22;
+      }
+
+      .expense-list {
+        margin-top: 20px;
+        background: #333;
+        border-radius: 10px;
+        padding: 15px;
+      }
+
+      .expense-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+
+      .expense-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .expense-item h3 {
+        font-size: 1rem;
+        margin: 0;
+      }
+
+      .expense-item span {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #ffd700;
+        margin-right: 2vw;
+      }
+
+      .actions {
+        display: flex;
+        /* gap: 10px; */
+        margin-left: 1vw;
+      }
+
+      .action-btn {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .action-btn:hover {
+        transform: scale(1.2);
+      }
+
+      .total-expenses {
+        margin-top: 20px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .total-expenses span {
+        color: #ffd700;
+      }
+
+      .edit {
+        color: rgb(255, 255, 255);
+        margin-left: 1vw;
+      }
+      .del {
+        color: rgb(255, 53, 53);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tracker-container">
+      <h1>Expense Tracker</h1>
+      <div class="input-group">
+        <label for="expense-name">Expense Name</label>
+        <input
+          type="text"
+          id="expense-name"
+          placeholder="Enter expense name"
+          autocomplete="off"
+        />
+      </div>
+      <div class="input-group">
+        <label for="expense-amount">Expense Amount</label>
+        <input
+          type="number"
+          id="expense-amount"
+          placeholder="Enter expense amount"
+        />
+      </div>
+      <button class="add-expense-btn">Add Expense</button>
+      <div class="expense-list">
+        <!-- <div class="expense-item">
+            <h3>hejsfvb dfhjvbdhjvfj</h3>
+            <div class="actions">
+                <span>$50</span>
+                <i class="fa-solid fa-pen-to-square action-btn edit" alt="Delete"></i>
+                <i class="fa-solid fa-trash action-btn del" alt="Edit"></i>
+            </div>
+        </div> -->
+      </div>
+      <div class="total-expenses">Total: <span>₹0</span></div>
+    </div>
+  </body>
+  <script>
+    let inputName = document.querySelector("#expense-name");
+    let inputPrice = document.querySelector("#expense-amount");
+    let addBtn = document.querySelector(".add-expense-btn");
+    let list = document.querySelector(".expense-list");
+    let totalDisplay = document.querySelector(".total-expenses span");
+    let totalPrice = 0;
+    let addedCnt = 0;
+
+    addBtn.addEventListener("click", () => {
+      if (inputName.value && inputPrice.value) {
+        let expense = inputName.value;
+        let price = inputPrice.value;
+        let ele = document.createElement("div");
+        ele.classList.value = "expense-item";
+        ele.innerHTML = `
+        <h3>${expense}</h3>
+        <div class="actions">
+            <span data="${price}">₹${price}</span>
+            <i class="fa-solid fa-trash action-btn del" alt="Edit"></i>
+        </div>`;
+        list.appendChild(ele);
+        totalPrice += parseFloat(price);
+        totalDisplay.innerText = `₹${totalPrice}`;
+        inputName.value = "";
+        inputPrice.value = "";
+        addedCnt++;
+        console.log(addedCnt);
+         
+
+        // edit and delete
+
+        
+      } else {
+        alert("Price or Expense Not valid");
+      }
+    });
+
+    //delete functionality
+    list.addEventListener("click", (event) => {
+
+    if (event.target.classList.contains("del")) {
+        let parentItem = event.target.closest(".expense-item");
+        let priceToDelete = parseFloat(parentItem.querySelector("span").getAttribute("data"));
+        totalPrice -= priceToDelete;
+        totalDisplay.innerText = `₹${totalPrice}`;
+        parentItem.remove();
+    }
+});
+
+  </script>
+</html>
